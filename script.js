@@ -87,3 +87,47 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+// ==========================================
+// 5. منع الصفحة البيضاء وإرسال الرسائل داخل الموقع
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    const contactForm = document.getElementById('contact-form');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = contactForm.querySelector('.btn-submit');
+            let originalText = "Send Message";
+            if(submitBtn) {
+                originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+                submitBtn.style.pointerEvents = 'none';
+            }
+
+            const formData = new FormData(contactForm);
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    alert('Thank you! Your message has been sent successfully. I will get back to you soon.');
+                    contactForm.reset();
+                } else {
+                    alert('Oops! There was a problem submitting your form.');
+                }
+            } catch (error) {
+                alert('Connection error. Please try again.');
+            } finally {
+                if(submitBtn) {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.pointerEvents = 'auto';
+                }
+            }
+        });
+    }
+});
