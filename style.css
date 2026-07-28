@@ -652,13 +652,13 @@ html, body {
     display: block !important;
 }
 /* Skills Grid Design */
-
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
-
 
 .skill-card {
     background-color: #121824;
